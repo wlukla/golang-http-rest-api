@@ -1,26 +1,25 @@
-package store_test
+package teststore_test
 
 import (
 	"golang-http-rest-api/internal/app/model"
-	"golang-http-rest-api/internal/app/store"
+	"golang-http-rest-api/internal/app/store/teststore"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestUserRepository_Create(t *testing.T) {
-	s, teardown := store.TestStore(t, databaseURL)
-	defer teardown("users")
+	s := teststore.New()
+	u := model.TestUser(t);
 
-	u, err := s.User().Create(model.TestUser(t))
+	err := s.User().Create(u)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, u)
 }
 
 func TestUserRepository_FindByEmail(t *testing.T) {
-	s, teardown := store.TestStore(t, databaseURL)
-	defer teardown("users")
+	s := teststore.New()
 
 	email := "user@example.com"
 
