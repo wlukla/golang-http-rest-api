@@ -39,7 +39,7 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) configureRouter() {
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
-	s.router.HandleFunc("/session", s.handleSessionsCreate()).Methods("POST")
+	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
 }
 
 func (s *server) handleUsersCreate() http.HandlerFunc {
@@ -88,6 +88,8 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 			s.error(w, r, http.StatusUnauthorized, errIncorrectEmailOrPassword)
 			return
 		}
+
+		s.respond(w, r, http.StatusCreated, nil)
 	}
 }
 

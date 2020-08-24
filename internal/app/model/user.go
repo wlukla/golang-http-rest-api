@@ -15,12 +15,12 @@ type User struct {
 }
 
 // Sanitize ...
-func (u User) Sanitize() {
+func (u *User) Sanitize() {
 	u.Password = ""
 }
 
 // ComparePasswords ...
-func (u User) ComparePasswords(password string) bool {
+func (u *User) ComparePasswords(password string) bool {
 	return bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(password)) == nil
 }
 
