@@ -1,8 +1,8 @@
 package teststore
 
 import (
-	"errors"
 	"golang-http-rest-api/internal/app/model"
+	"golang-http-rest-api/internal/app/store"
 )
 
 // UserRepository ...
@@ -32,7 +32,7 @@ func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
 	u, ok := r.users[email];
 
 	if !ok {
-		return nil, errors.New("Not found in db")
+		return nil, store.ErrRecordNotFound
 	}
 
 	return u, nil
