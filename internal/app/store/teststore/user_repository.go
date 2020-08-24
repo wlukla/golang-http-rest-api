@@ -21,15 +21,26 @@ func (r *UserRepository) Create(u *model.User) error {
 		return err
 	}
 
-	r.users[u.Email] = u;
-	u.ID = string(len(r.users));
+	u.ID = string(len(r.users) + 1)
+	r.users[u.ID] = u
 
 	return nil
 }
 
 // FindByEmail ...
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
-	u, ok := r.users[email];
+	u, ok := r.users[email]
+
+	if !ok {
+		return nil, store.ErrRecordNotFound
+	}
+
+	return u, nil
+}
+
+// Find ...
+func (r *UserRepository) Find(id string) (*model.User, error) {
+	u, ok := r.users[id]
 
 	if !ok {
 		return nil, store.ErrRecordNotFound
