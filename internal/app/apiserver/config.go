@@ -1,6 +1,6 @@
 package apiserver
 
-import "golang-http-rest-api/store"
+import "golang-http-rest-api/internal/app/store"
 
 // Config ...
 type Config struct {
